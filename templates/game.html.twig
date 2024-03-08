@@ -1,0 +1,93 @@
+<html lang="en" id="page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Морски шах</title>
+    <link rel="stylesheet"  type="text/css" href="./assets/style.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./assets/toastr.css"/>
+</head>
+<body>
+{# Взимаме си нава #}
+{{ include ('nav.html.twig') }}
+
+<center/>
+{# Проверяваме дали има победител #}
+{% if winner|length %}
+    <p style=" width: 600px; padding: 30px; background: orange; color: white; font-size: 20px; border: 1px solid lightgray;"> {{ winner }} победи</p>
+    {#<p id="winner" style="visibility: hidden;"> {{ winner }} победи</p>#}
+{% elseif null not in boards %}
+    <p style=" width: 600px; padding: 30px; background: orange; color: white; font-size: 20px; border: 1px solid lightgray;">Няма победител</p>
+{% endif %}
+
+<form method="post">
+    <div class="container">
+        <div class="square-table">
+            {# Сетваме си всяка една клетка - 0.0 ; 0.1 ; 0.2 ... #}
+            {% for i in 0..2 %}
+                {% for j in 0..2 %}
+                    {% set index = 3 * i + j %}
+                    {# Взимаме си индекса на клетките и ги сетваме в нашата сесия борд #}
+                    {%  set  value =  boards[index]  %}
+
+                         <div class="square-cell">
+                             {% if value == null %}
+{#                              {# Ако клетката е празна и няма печеливша комбинация  #}
+                                {% if winner|length %}
+                                    <div></div>
+                                    {% else %}
+                                        {# Качваме си индекса на хода в урл #}
+                                 <div><a class="move" href="?move={{ index }}"></a></div>
+                                {% endif %}
+
+                             {% else %}
+                                 {# изобразяваме си хода #}
+                                 {% if value == 'X' %} {# If the cell is not empty, display '❌' for 'X' and '⭕' for 'O' #}
+                                     <div>❌</div>
+                                 {% endif %}
+                                 {% if value =='O' %}
+                                     <div style="filter: hue-rotate(180deg)">⭕</div>
+                                 {% endif%}
+                             {% endif %}
+                         </div>
+
+                {% endfor %}
+            {% endfor %}
+</div>
+    </div>
+
+</form>
+<script src=" .js/jquery.min.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //Показваме нотификация за победител
+        const showNotification = function () {
+
+            toastr.options = {
+                //"closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000000",
+                "timeOut": "0",
+                //"extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("ЧЕСТИТО", $("{{ winner }}")[0].innerHTML);
+        };
+
+        if ($("{{winner}}")[0].innerHTML !== undefined) {
+            showNotification() //Извикваме config-a за toastr-a + изпълнението му
+        }
+    });
+</script>
+</body>
+</html>
