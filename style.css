@@ -1,0 +1,176 @@
+body {
+   background-image: url("fonSingle.jpg");
+    text-align: center;
+    background-size : cover;
+}
+
+h3{
+    font-size: 50px;
+}
+.tct-container {
+    min-height: 500px;
+    margin: 0 auto;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.tct-table{
+    border-collapse: unset;
+}
+
+.tct-table th, td {
+    padding: 70px;
+}
+
+.tct-form {
+    background: #c9d5a5;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    display: inline-block;
+    padding: 30px;
+}
+
+.tct-form button {
+    font-size: 30px;
+}
+
+.tct-form select {
+    font-size: 50px;
+}
+
+.tct-message {
+    font-size: 30px;
+    background: #f6f6f6;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 20px;
+    color: #06542f;
+}
+.welcome .player-name {
+    margin: 30px 0;
+    color:red;
+}
+.welcome h1,
+.welcome h2 {
+    text-align: center;
+    color:red;
+}
+
+.welcome input {
+    width: 100%;
+}
+button {
+    background-color: #ff3111;
+    color: #FFF;
+    border: 0;
+    padding: 1em 2em;
+    cursor: pointer;
+}
+
+.move {
+    width: 100%;
+    padding: 50px;
+    opacity: 0;
+}
+
+button[disabled] {
+    cursor: not-allowed;
+    opacity: .5;
+}
+input, button {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    color: #333;
+}
+input[type=text] {
+    border-radius: 1px;
+    border: 5px solid #eee;
+    margin: 3px 0;
+    width: 200px;
+    padding: 8px 5px;
+}
+.firstplayer {
+    margin-right: 500px;
+    color:red;
+    font-size:50px;
+}
+.secondplayer
+{
+    margin-left: 50px;
+    color:green;
+    font-size:50px;
+}
+.newgame
+{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    border: 1px solid lightgray;
+    background: lightgray;
+    color: black;
+    border-radius: 20%;
+}
+.table {
+    width: 300px!important;
+    padding: 10px;
+    border:1px solid rgba(255, 255, 255, 0.64)!important;
+    border-radius: 20px;
+}
+td {
+    border:1px blueviolet solid;
+    width: 50px!important;
+    height: 50px!important;
+    padding: 1px!important;
+    font-size: 4rem!important;
+    align-content: center;
+}
+.pobeda {
+    width: 600px;
+    padding: 30px;
+    background: darkgreen;
+    color: white;
+    font-size: 20px;
+    border: 1px solid lightgray;
+}
+.playersimbols
+{
+    margin-top: 150px;
+    width: 600px;
+    background: dimgray;
+    color: white;
+    border: 1px solid lightgray;
+    padding: 30px;"
+}
+
+/* Additional CSS for absolute square table */
+.square-table {
+    width: 100%;
+    max-width: 300px; /* Set the maximum width as needed */
+    display: flex;
+    flex-wrap: wrap;
+}
+.square-cell {
+    flex: 0 0 33.333%; /* Each cell takes up 1/3 of the container's width */
+    height: 0;
+    padding-bottom: 33.333%; /* Aspect ratio 1:1 (square) */
+    position: relative;
+}
+.square-cell > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border: 1px solid #ccc;
+}
+
+.toast-top-center {
+    top: 20px;
+    left:50%;
+    margin:0 0 0 -150px;
+}
