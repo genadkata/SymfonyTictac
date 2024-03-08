@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>ela tuk </p>
+</body>
+</html>
+
+
+
+
+$index = 3 * $i + $j; // вземаме си индекса
+// Използваме двата цикъла за да обходим всяка една клетка от борда ни на принципа (0.0 , 0.1 , 0.2 ; 1.0 , 1.1 и т.н.)
+$value = $_SESSION['board'][$index];
+// Ако е празен индекс
+echo '<div class="square-cell">';
+    if ($value === null) {
+    // бутонче със име move за следващ ход  със сетнат индекс -->
+    if (!isset($_SESSION['winner'])) {
+    echo '<div><a class="move" href="?move=' . $index . '"> </a></div>';
+    } else {
+    echo '<div></div>';
+    }
+    } else {
+    // След натискане на бутона да се показва нашия или символа на робота  -->
+    echo $value == 'X' ? "<div>❌</div>" : "<div style='filter: hue-rotate(180deg)'>⭕</div>";
+    }
+    echo '</div>';
+}}
+}
+
+
+
+
+
+
+
+
+
+
+
+<form method="post">
+    <div class="container">
+        <div class="square-table">
+            {% for i in 0..2 %}
+            {% for j in 0..2 %}
+            {% set index = 3 * i + j %}
+            {# Get the value at the current index from the session #}
+            {% set value = boards [index] %}
+            <div class="square-cell">
+                {% if value is null %}
+                {# If the cell is empty, display a link for the next move if there's no winner #}
+                {% if not app.session.get('winner') is  defined %}
+                <div><a class="move" href="?move= {{ index }}  "></a></div>
+                {% else %}
+                <div></div>
+                {% endif %}
+                {% else %}
+                {# If the cell is not empty, display '❌' for 'X' and '⭕' for 'O' #}
+                {% if value == 'X' %}
+                <div>❌</div>
+                {% endif %}
+                {% if value =='O' %}
+                <div style="filter: hue-rotate(180deg)">⭕</div>
+                {% endif %}
+
+                {% endif %}
+
+                {{ dump(boards) }}
+            </div>
+
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+</form>
+
+
+
+public function makeBotMove(Session &$session)
+{
+/*   dd($session);*/
+
+
+$board = $session->get('board');
+
+$emptyCells = array_filter($board, function ($cell)  // Взимаме си празните клетки
+{
+return $cell === null;
+});
+if (!empty($emptyCells)) { // Проверяваме дали са празни
+$randomCell = array_rand($emptyCells); // Избира рандом клетка
+$board[$randomCell] = "O"; // Сетваме хода на бота
+}
+}
+}
+
+
+
+
+
+
+SET BOARD
+
+
+public function __construct()
+{
+$this->request= new Request();
+}
+
+
+function setBoard()
+{
+$session = new Session();
+$session->set('board', array_fill(0, 9, null));
+}
+
+
+
+
+
+
+MAKE MOVE
+
+
+
+public function makeMove($index): void
+{
+$requestHandler = new Request();
+$session = new Session();
+
+
+$board = $session->get('board');
+
+$board[++$index] = 'X';
+
+$emptyCells = array_filter($board, function ($cell)  // Взимаме си празните клетки
+{
+return $cell === null;
+});
+if (!empty($emptyCells)) { // Проверяваме дали са празни
+$randomCell = array_rand($emptyCells); // Избира рандом клетка
+$board[$randomCell] = "O"; // Сетваме хода на бота
+}
+
+
+
+var_dump($board);
+
+// функция за хода на бота*/
+//ToDO : Двата метода в една сесия
+$this->checkWinner();
+
+}
+
+}
+
+
+
+public function makeMove($index): void
+{
+
+$session = $this->requestStack->getCurrentRequest()->getSession();
+
+$this->board[++$index] = 'X';
+
+$emptyCells = array_filter($this->board, function ($cell)  // Взимаме си празните клетки
+{
+return $cell === null;
+});
+if (!empty($emptyCells)) { // Проверяваме дали са празни
+$randomCell = array_rand($emptyCells); // Избира рандом клетка
+$this->board[$randomCell] = "O"; // Сетваме хода на бота
+}
+
+$this->checkWinner();
+
+
+var_dump($this->board);
+
+// функция за хода на бота*/
+//ToDO : Двата метода в една сесия
+$session->set('board' , [
+'board' => $this->board
+]);
+
+
+}
+
+
+
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Probna;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+/**
+ * @extends ServiceEntityRepository<Probna>
+*
+* @method Probna|null find($id, $lockMode = null, $lockVersion = null)
+* @method Probna|null findOneBy(array $criteria, array $orderBy = null)
+* @method Probna[]    findAll()
+* @method Probna[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+*/
+class ProbnaRepository extends ServiceEntityRepository
+{
+public function __construct(ManagerRegistry $registry)
+{
+parent::__construct($registry, Probna::class);
+}
+
+//    /**
+//     * @return Probna[] Returns an array of Probna objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('p.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+//    public function findOneBySomeField($value): ?Probna
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
+}
+
+
+
+
+<?php
+
+namespace App\Repository;
+
+use App\Entity\ValidationToken;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+/**
+ * @extends ServiceEntityRepository<ValidationToken>
+*
+* @method ValidationToken|null find($id, $lockMode = null, $lockVersion = null)
+* @method ValidationToken|null findOneBy(array $criteria, array $orderBy = null)
+* @method ValidationToken[]    findAll()
+* @method ValidationToken[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+*/
+class ValidationTokenRepository extends ServiceEntityRepository
+{
+public function __construct(ManagerRegistry $registry)
+{
+parent::__construct($registry, ValidationToken::class);
+}
+
+//    /**
+//     * @return ValidationToken[] Returns an array of ValidationToken objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('v')
+//            ->andWhere('v.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('v.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+//    public function findOneBySomeField($value): ?ValidationToken
+//    {
+//        return $this->createQueryBuilder('v')
+//            ->andWhere('v.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
+}
